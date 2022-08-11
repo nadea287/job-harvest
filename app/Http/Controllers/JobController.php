@@ -2,24 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
+use Symfony\Component\DomCrawler\Crawler;
 
 class JobController extends Controller
 {
     public function index()
     {
-        $client = new Client();
-        $url = 'https://www.bestjobs.eu/ro/locuri-de-munca-in-bucuresti';
-        $response = $client->request('POST', $url, [
-            'title' => 'Programator PHP',
-//            'company' =>
+        $client = new Client([
+            'timeout' => 10
         ]);
+        $url = 'https://www.bestjobs.eu/ro/locuri-de-munca-in-bucuresti/symfony';
+        $response = $client->request('GET', $url);
         $content = $response->getBody()->getContents();
-        //https://codebriefly.com/how-to-handle-content-scraping-in-laravel/
-
-//        $responde = Http::get('https://www.bestjobs.eu/ro/locuri-de-munca-in-bucuresti/symfony');
-//        dd(json_decode($responde->body()));
-//        dd($responde);
+        //
+        $crawler = new Crawler($content);
+        $data = $crawler->filter('.card.h-100')
+            ->each(function (Crawler $node, $i) {
+                $company = $node->filter('.h6.text-muted.text-truncate.py-2 > small')->text();
+                $title = $node->filter('.h6.truncate-2-line > strong')->text();
+                $location = $node->filter('.d-flex.min-width-3')->text();
+                return [
+                    'title' => $title,
+                    'company' => $company,
+                    'location' => $location
+                ];
+            });
+        //
+        Job::insert($data);
+        dd($data);
     }
 }
