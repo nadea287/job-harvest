@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Services\JobService;
 
 class JobController extends Controller
@@ -10,7 +11,8 @@ class JobController extends Controller
     {
         $content = JobService::getHtmlTemplate();
         JobService::crawlContentAndCreateJobRecord($content);
+        $jobs = Job::all();
 
-        return 'true';
+        return view('jobs.index', compact('jobs'));
     }
 }
