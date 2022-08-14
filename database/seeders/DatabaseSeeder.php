@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        Cv::factory(10)->create();
+        $this->call(JobSeeder::class);
+//        Cv::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

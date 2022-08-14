@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
+Route::get('/search', [JobController::class, 'search']);

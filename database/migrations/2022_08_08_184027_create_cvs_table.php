@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('cvs', function (Blueprint $table) {
             $table->id();
+//            $table->foreignId('job_id')->constrained();
             $table->string('name');
             $table->string('address');
             $table->string('education');

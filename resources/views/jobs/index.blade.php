@@ -1,32 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@include('layouts.applayout')
 <body>
-<table class="table-auto">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Company</th>
-        <th>Location</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach($jobs as $job)
+<div>
+    <div>
+        <input type="text" name="search" id="search-input" placeholder="search...">
+        <button id="search">search</button>
+    </div>
+    <table class="table table-hover table-sm">
+        <thead>
         <tr>
-            <td>{{ $job->title }}</td>
-            <td>{{ $job->company }}</td>
-            <td>{{ $job->location }}</td>
-            <td>{{ $job->description }}</td>
+            <th scope="col">Title</th>
+            <th scope="col">Company</th>
+            <th scope="col">Location</th>
+            <th scope="col">Description</th>
         </tr>
-    @endforeach
-    </tbody>
-</table>
-</body>
-</html>
+        </thead>
+        <tbody>
+        <tbody class="all-data">
+        @foreach($jobs as $job)
+            <tr>
+                <td>
+                    <a href="{{ route('jobs.show', ['job' => $job->id]) }}">
+                        {{ $job->title }}
+                    </a>
+                </td>
+                <td>{{ $job->company }}</td>
+                <td>{{ $job->location }}</td>
+                <td>{{ $job->description }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+        <tbody id="content" class="search-data"></tbody>
+        </tbody>
+    </table>
+</div>
+{{--@push('scripts')--}}
+{{--    <script src="{{ asset('js/jquery.js') }}"></script>--}}
+{{--    <script src="{{ asset('/js/search.js') }}"></script>--}}
+{{--@endpush--}}
+
