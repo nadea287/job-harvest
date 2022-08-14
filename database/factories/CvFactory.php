@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Cv;
+use App\Models\Job;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,11 +23,11 @@ class CvFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name,
-            'address' => fake()->address,
+            'name' => fake()->name(),
+            'address' => fake()->address(),
             'education' => fake()->slug(),
             'work' => fake()->jobTitle(),
-            'experience' => fake()->sentence
+            'experience' => fake()->sentence()
         ];
     }
 }

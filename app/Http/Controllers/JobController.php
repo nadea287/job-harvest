@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
-use App\Services\JobService;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
     public function index()
     {
-        $content = JobService::getHtmlTemplate();
-        JobService::crawlContentAndCreateJobRecord($content);
         $jobs = Job::all();
-
         return view('jobs.index', compact('jobs'));
     }
 
@@ -25,12 +21,17 @@ class JobController extends Controller
         foreach ($jobs as $job) {
             $output .=
                 '<tr>
-                    <td> ' . $job->title . ' </td>
+                    <td> <a href="/jobs/' . $job->id . '">' . $job->title . '</a> </td>
                     <td> ' . $job->company . ' </td>
                     <td> ' . $job->location . ' </td>
                     </tr>';
         }
 
         return response($output);
+    }
+
+    public function show(Job $job)
+    {
+        return view('jobs.show', compact('job'));
     }
 }

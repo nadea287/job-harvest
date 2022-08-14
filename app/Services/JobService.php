@@ -20,7 +20,7 @@ class JobService
             $response = $client->request('GET', 'https://www.bestjobs.eu/ro/locuri-de-munca-in-bucuresti/symfony');
             return $response->getBody()->getContents();
         } catch (ConnectException $exception) {
-            report($exception);
+            Log::error($exception->getMessage());
             return false;
         }
 
