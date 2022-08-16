@@ -23,4 +23,9 @@ class Cv extends Model
         return $this->belongsToMany(Job::class);
     }
 
+    public function getScoreAttribute()
+    {
+        return $this->jobs->sum('score');
+    }
+
 }

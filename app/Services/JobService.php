@@ -35,7 +35,7 @@ class JobService
             });
     }
 
-    private static function createJob($title, $company, $location)
+    private static function createJob($title, $company, $location, $description)
     {
         try {
             Job::updateOrCreate(
@@ -44,7 +44,8 @@ class JobService
                     'company' => $company,
                 ],
                 [
-                    'location' => $location
+                    'location' => $location,
+                    'description' => $description
                 ]
             );
         } catch (QueryException $exception) {
@@ -56,11 +57,11 @@ class JobService
     private static function getJobFields($node)
     {
         $company = $node->filter('.h6.text-muted.text-truncate.py-2 > small')->text();
-//        $company = null;
         $title = $node->filter('.h6.truncate-2-line > strong')->text();
         $location = $node->filter('.d-flex.min-width-3')->text();
+        $description = $node->filter('.text-right')->text();
 
-        return self::createJob($title, $company, $location) === false ? false : true;
+        return self::createJob($title, $company, $location, $description) === false ? false : true;
     }
 
 }

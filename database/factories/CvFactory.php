@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Cv;
-use App\Models\Job;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,6 +14,7 @@ class CvFactory extends Factory
      * @var string
      */
     protected $model = Cv::class;
+
     /**
      * Define the model's default state.
      *

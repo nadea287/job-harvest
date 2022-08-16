@@ -17,7 +17,7 @@
     <div class="ml-5">
         <span class="m-lg-3 fw-bold">Candidates:</span>
         <ul>
-            @foreach($job->cvs as $cv)
+            @foreach($cvs as $cv)
                 <li>{{ $cv->name }} | {{ $cv->work }}</li>
             @endforeach
         </ul>
