@@ -6,11 +6,10 @@ $(function () {
     });
 
     search()
+
     function search() {
         $('#search').on('click', function () {
-            console.log('here');
             $value = $('#search-input').val()
-            console.log($value);
             if ($value) {
                 $('.all-data').hide()
                 $('.search-data').show()
@@ -22,9 +21,18 @@ $(function () {
                 url: 'search',
                 method: 'GET',
                 data: {search: $value},
-            }).done(function (result) {
-                console.log(result);
-                $('#content').html(result)
+            }).done((result) => {
+
+                let data = result.map((item) => {
+                    let row =
+                        `<tr>
+                    <td><a href="/jobs/${item.id}">${item.title}</a></td>
+                    <td>${item.company}</td>
+                    <td>${item.location}</td>
+                    </tr>`
+                    return row
+                })
+                $('#content').html(data)
             }).fail(function (error) {
                 console.log(error);
             })

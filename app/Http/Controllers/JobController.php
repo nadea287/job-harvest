@@ -15,23 +15,19 @@ class JobController extends Controller
 
     public function search(Request $request)
     {
-        $output = null;
         $jobs = Job::whereRaw("MATCH (`title`, `company`, `location`) AGAINST (? IN BOOLEAN MODE)",
-            [$request->search])->get();
-        foreach ($jobs as $job) {
-            $output .=
-                '<tr>
-                    <td> <a href="/jobs/' . $job->id . '">' . $job->title . '</a> </td>
-                    <td> ' . $job->company . ' </td>
-                    <td> ' . $job->location . ' </td>
-                    </tr>';
-        }
+            [$request->get('search')])
+            ->get();
 
-        return response($output);
+        return response($jobs);
     }
 
     public function show(Job $job)
     {
-        return view('jobs.show', compact('job'));
+        $cvs = $job->cvs->sortByDesc(function ($item) {
+            return $item->score;
+        });
+
+        return view('jobs.show', compact('job', 'cvs'));
     }
 }

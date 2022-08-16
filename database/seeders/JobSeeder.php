@@ -16,7 +16,7 @@ class JobSeeder extends Seeder
      */
     public function run()
     {
-        Cv::factory()->count(10)->create();
+        Cv::factory()->count(30)->create();
         $content = JobService::getHtmlTemplate();
         JobService::crawlContentAndCreateJobRecord($content);
 
