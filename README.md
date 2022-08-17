@@ -15,7 +15,7 @@ After cloning the project, install composer using bellow command:
 ~~~
 composer install
 ~~~
-Copy .env from .env.example for configuration and update database configuration (with the real database configs data) on that file:
+Make a copy of the .env.example file and create a .env file and update database configuration (with the real database configs data) on that file:
 
 ~~~
 ...
@@ -25,13 +25,13 @@ DB_PASSWORD=demo123456
 ...
 ~~~
 
-Generate key using bellow command:
+Generate an app encryption key:
 
 ~~~
 php artisan key:generate
 ~~~
 
-You can run migration and seeder command like:
+You can run migrations and seeders:
 ~~~
 php artisan migrate
 ~~~
